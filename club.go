@@ -7,10 +7,10 @@ import (
 type ClubRole string
 
 const (
-	ClubRolePresident     string = "president"
-	ClubRoleVicePresident string = "vicePresident"
-	ClubRoleSenior        string = "senior"
-	ClubRoleMember        string = "member"
+	ClubRolePresident     ClubRole = "president"
+	ClubRoleVicePresident ClubRole = "vicePresident"
+	ClubRoleSenior        ClubRole = "senior"
+	ClubRoleMember        ClubRole = "member"
 )
 
 type Club struct {
