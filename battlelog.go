@@ -1,5 +1,7 @@
 package bsapi
 
+import "net/url"
+
 type BattleResult string
 type BrawlerName string
 
@@ -20,12 +22,12 @@ type BattleItem struct {
 }
 
 type Battle struct {
-	Mode         string       `json:"mode"`
-	Type         string       `json:"type"`
-	Result       BattleResult `json:"result"`
-	Duration     int          `json:"duration"`
-	TrophyChange int          `json:"trophyChange"`
-	Teams        []Team       `json:"teams"`
+	Mode         string         `json:"mode"`
+	Type         string         `json:"type"`
+	Result       BattleResult   `json:"result"`
+	Duration     int            `json:"duration"`
+	TrophyChange int            `json:"trophyChange"`
+	Teams        [][]TeamMember `json:"teams"`
 }
 
 type Event struct {
@@ -34,7 +36,7 @@ type Event struct {
 	Map  string `json:"map"`
 }
 
-type Team struct {
+type TeamMember struct {
 	Tag     string        `json:"tag"`
 	Name    string        `json:"name"`
 	Brawler BattleBrawler `json:"brawler"`
@@ -45,4 +47,18 @@ type BattleBrawler struct {
 	Name     BrawlerName `json:"name"`
 	Power    int         `json:"power"`
 	Trophies int         `json:"trophies"`
+}
+
+func (api BsApi) GetBattleList(playerTag string) (BattleList, error) {
+	url := "/players/" + url.QueryEscape(playerTag) + "/battlelog"
+	data, err := api.makeRequest(url)
+	if err != nil {
+		return BattleList{}, err
+	}
+	battleLog := BattleList{}
+	err = json.Unmarshal(data, &battleLog)
+	if err != nil {
+		return BattleList{}, err
+	}
+	return battleLog, nil
 }

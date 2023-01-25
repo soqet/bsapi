@@ -44,7 +44,6 @@ func (api BsApi) makeRequest(urlSuffix string) ([]byte, error) {
 	return nil, ce
 }
 
-
 func NewApi(token string) BsApi {
 	bs := BsApi{}
 	bs.token = token
