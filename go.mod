@@ -1,4 +1,4 @@
-module github.com/soqet/bs-api
+module github.com/soqet/bsapi
 
 go 1.19
 
