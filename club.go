@@ -1,6 +1,7 @@
 package bsapi
 
 import (
+	"context"
 	"net/url"
 )
 
@@ -33,9 +34,9 @@ type ClubMember struct {
 	NameColor string     `json:"nameColor"`
 }
 
-func (api BsApi) GetClubStats(tag string) (Club, error) {
+func (api BsApi) GetClubStats(ctx context.Context, tag string) (Club, error) {
 	url := "/clubs/" + url.QueryEscape(tag)
-	data, err := api.makeRequest(url)
+	data, err := api.makeRequest(ctx, url)
 	if err != nil {
 		return Club{}, err
 	}

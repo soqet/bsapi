@@ -1,6 +1,7 @@
 package bsapi
 
 import (
+	"context"
 	"net/url"
 )
 
@@ -28,9 +29,9 @@ type PlayerIcon struct {
 	Id int `json:"id"`
 }
 
-func (api BsApi) GetPlayerStats(tag string) (Player, error) {
+func (api BsApi) GetPlayerStats(ctx context.Context, tag string) (Player, error) {
 	url := "/players/" + url.QueryEscape(tag)
-	data, err := api.makeRequest(url)
+	data, err := api.makeRequest(ctx, url)
 	if err != nil {
 		return Player{}, err
 	}

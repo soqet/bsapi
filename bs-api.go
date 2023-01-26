@@ -2,8 +2,8 @@ package bsapi
 
 import (
 	"bytes"
+	"context"
 	"net/http"
-
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -15,9 +15,9 @@ type BsApi struct {
 	token string
 }
 
-func (api BsApi) makeRequest(urlSuffix string) ([]byte, error) {
+func (api BsApi) makeRequest(ctx context.Context, urlSuffix string) ([]byte, error) {
 	client := http.Client{}
-	req, err := http.NewRequest("GET", apiUrl+urlSuffix, nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", apiUrl+urlSuffix, nil)
 	if err != nil {
 		return nil, err
 	}
